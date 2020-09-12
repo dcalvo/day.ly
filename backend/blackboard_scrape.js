@@ -1,6 +1,5 @@
 const puppeteer = require("puppeteer");
 const creds = require("../creds");
-const { downloadFromUrl } = require("./download_url");
 
 async function blackboard_scrape(count = 0) {
   const browser = await puppeteer.launch();
@@ -12,11 +11,10 @@ async function blackboard_scrape(count = 0) {
     await page.waitForNavigation({
       waitUntil: "networkidle0",
     });
-    await page.waitForSelector("#i0116"); // username field
-    await page.type("#i0116", creds.BlackBoard.username);
+    await page.waitForSelector("input[type='email']"); // username field
+    await page.type("input[type='email']", creds.BlackBoard.username);
     await page.click("#idSIButton9"); // next
-    await page.waitForSelector("#i0118", { visible: true }); // password field
-    await page.type("#i0118", creds.BlackBoard.password);
+    await page.type("input[type='password']", creds.BlackBoard.password); // password field
     await page.waitFor(3000); // required wait time for JS
     await page.click("#idSIButton9"); // next
   }
