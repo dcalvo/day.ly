@@ -39,7 +39,11 @@
 
 .weekDay {
     display:flex;       
-    overflow-x: hidden;
+    overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+}
+
+.weekDay::-webkit-scrollbar {
+    display: none;
 }
