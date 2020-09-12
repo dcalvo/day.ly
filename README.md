@@ -1,6 +1,5 @@
-# TheCurlyBois
+# Day.ly
 
-Day.ly
 Authors: David Calvo, Connor Devlin, Marc Helou, Brennan Hughes
 HopHacks @ Johns Hopkins University
 
