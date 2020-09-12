@@ -3,6 +3,13 @@
     color: black;
 }
 
+.calTaskWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow-y: scroll;
+}
+
 .calTask {
     position: relative;
     display: flex;
@@ -24,11 +31,13 @@
 }
 .calCol {
     display: flex;
+    flex-direction: column;
     color: #44bcd8;
     justify-content: left;
     width: 200px;
     height: 150px;
     border: solid 1px;
+    overflow-y: scroll;
 }
 .calDay {
     display: flex;
@@ -38,8 +47,10 @@
     font-size: x-large;
 }
 .day {
+    display: flex;
     font-size: larger;
     color: #858796;
+    width: 100%;
     padding-left: 5px;
     padding-top: 5px;
 }
