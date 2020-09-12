@@ -54,4 +54,4 @@ async function sis_scrape(count = 0) {
   return classes;
 }
 
-sis_scrape();
+exports.sis_scrape = sis_scrape;
