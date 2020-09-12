@@ -1,0 +1,38 @@
+.calRow {
+    display: flex;
+    color: red;
+    text-align: center;
+    justify-content: center;
+}
+.calCol {
+    display: flex;
+    color: #44bcd8;
+    justify-content: center;
+    width: 200px;
+    height: 150px;
+    border: solid 1px;
+}
+.calDay {
+    display: flex;
+    color: #858796;
+    width: 200px;
+    justify-content: center;
+    font-size: x-large;
+}
+.day {
+    font-size: larger;
+    color: #858796;
+    padding-right: 170px;
+    padding-top: 5px;
+}
+.calColGreyed {
+    display: flex;
+    justify-content: center;
+    font-size: larger;
+    width: 200px;
+    height: 150px;
+    color: #C8C8C8;
+    border: solid 1px #44bcd8;
+    padding-right: 170px;
+    padding-top: 5px;
+}
