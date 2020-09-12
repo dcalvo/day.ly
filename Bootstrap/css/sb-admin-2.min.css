@@ -314,6 +314,10 @@
   [hidden] {
     display: none !important;
   }
+  #refresh {
+    margin-top: 25px;
+    outline: none;
+  }
   .h1,
   .h2,
   .h3,

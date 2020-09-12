@@ -13,14 +13,14 @@
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
   <link href="css/calendar.css" rel="stylesheet">
-  <link rel="icon" 
-      type="image/png" 
-      href="img/whitecalendar.png">
+  <link rel="icon" type="image/png" href="img/whitecalendar.png">
 
 </head>
 
@@ -53,7 +53,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-      
+
 
     </ul>
     <!-- End of Sidebar -->
@@ -74,35 +74,31 @@
           <h1> Welcome to your <a href="week-view.html">month.</a></h1>
           <ul class="navbar-nav ml-auto">
 
+            <!-- Refresh Button-->
+            <div>
+              <input type="image" src="img/refresh.png" alt="Refresh" id="refresh" title="Refresh Calendar" width="20">
+            </div>
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-search fa-fw"></i>
               </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
+
             </li>
 
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 <span class="badge badge-danger badge-counter">3+</span>
               </a>
+
               <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Alerts Center
                 </h6>
@@ -119,16 +115,17 @@
                 </a>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
+
             </li>
 
-            <!-- Nav Item - Messages -->
-            
+
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Marc Helou</span>
                 <img class="img-profile rounded-circle" src="img/Marc.jpg">
               </a>
@@ -161,8 +158,8 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          
-          <!-- TODO Calendar -->  
+
+          <!-- TODO Calendar -->
           <div class="calRow">
             <div class="calDay">Sunday</div>
             <div class="calDay">Monday</div>
@@ -176,9 +173,20 @@
             <div class="calColGreyed">30</div>
             <div class="calColGreyed">31</div>
             <div class="calCol">
-              <p class="day">1</p>
-              <div class="calTask border-left-warning w-25 py-2">
-                assignment
+              <div class="day">1</div>
+              <div class="calTaskWrapper">
+                <div class="calTask border-left-warning h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Assignment 1</div>
+                      <div class="row no-gutters align-items-center">
+                        <div class="col-auto">
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">11:59PM</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="calCol"><p class="day">2</p></div>
@@ -222,9 +230,6 @@
             <div class="calColGreyed">2</div>
             <div class="calColGreyed">3</div>
           </div>
-
-        </div>
-        
         <!-- /.container-fluid -->
 
       </div>
@@ -252,7 +257,8 @@
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -271,7 +277,7 @@
   </div>
 
   <!-- Calendar JavaScript-->
-  <script src = "js/calendar.js"></script>
+  <script src="js/calendar.js"></script>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
