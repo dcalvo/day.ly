@@ -8921,6 +8921,7 @@
   }
   #wrapper {
     display: flex;
+    overflow-y: hidden;
   }
   #wrapper #content-wrapper {
     background-color: #f8f9fc;
