@@ -39,9 +39,5 @@
 
 .weekDay {
     display: flex;
-    color: #44bcd8;
-    justify-content: center;
-    width: 200px;
-    height: 600px;
-    border: solid 1px;
+    justify-content: left;
 }
