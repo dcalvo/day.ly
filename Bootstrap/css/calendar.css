@@ -1,6 +1,6 @@
 #today {
     font-weight: bold;
-    font-color: black;
+    color: black;
 }
 .calRow {
     display: flex;
