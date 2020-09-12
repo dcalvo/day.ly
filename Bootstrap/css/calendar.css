@@ -1,3 +1,7 @@
+#today {
+    font-weight: bold;
+    color: black;
+}
 .calRow {
     display: flex;
     color: red;
@@ -35,9 +39,17 @@
     border: solid 1px #44bcd8;
     padding-right: 170px;
     padding-top: 5px;
+    background-image: url(../img/disabledStripe.jpg);
+    background-size: 25%;
 }
 
 .weekDay {
-    display: flex;
-    justify-content: left;
+    display:flex;       
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.weekDay::-webkit-scrollbar {
+    display: none;
 }

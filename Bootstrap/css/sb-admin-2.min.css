@@ -4136,8 +4136,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
+    min-width: 180px;
+    /*word-wrap: break-word;*/
     background-color: #fff;
     background-clip: border-box;
     border: 1px solid #e3e6f0;
@@ -6859,6 +6859,9 @@
   .shadow-none {
     box-shadow: none !important;
   }
+  .w-175 {
+    width:175px !important;
+  }
   .w-25 {
     width: 25% !important;
   }
@@ -8918,6 +8921,7 @@
   }
   #wrapper {
     display: flex;
+    overflow-y: hidden;
   }
   #wrapper #content-wrapper {
     background-color: #f8f9fc;
