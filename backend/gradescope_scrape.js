@@ -206,14 +206,18 @@ function militaryTime(standardTime){
 
 }
 
-async function writeAssignments(){
-  var assignments = await getAssignments();
+function writeToFile(assignments, fileName){
   var json = JSON.stringify(assignments);
-  fs.writeFile('gradescope.txt',json, (err) => {
+  fs.writeFile(fileName,json, (err) => {
 
     if(err) throw err;
 
   });
 }
 
-writeAssignments();
+async function writeAssignments(){
+
+  var assignments = await getAssignments();
+  writeToFile(assignments, "gradescope.txt");
+
+}
