@@ -1,4 +1,16 @@
 const fetch = require("node-fetch");
-fetch("https://api.groupme.com/v3/chats?token=cc2a2d00d7750138126116e3b19c9748")
-  .then((res) => res.json())
-  .then((json) => console.log());
+
+async function getGroupmeMessages(token) {
+  const response = await fetch(
+    `https://api.groupme.com/v3/groups?token=${token}`
+  );
+  const json = await response.json();
+  const groupName = json.response[0].name;
+  const groupImg = json.response[0].image_url;
+  const lastMessagePreview = json.response[0].messages.preview;
+  const result = { groupName, groupImg, lastMessagePreview };
+  console.log(result);
+  return result;
+}
+
+exports.getGroupmeMessages = getGroupmeMessages;
