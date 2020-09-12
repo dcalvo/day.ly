@@ -1,9 +1,7 @@
 const ICAL = require("ical.js");
-const { blackboard_scrape } = require("./blackboard_scrape");
 
-(async () => {
+async function ical_parse(icalData) {
   // get iCal from BlackBoard
-  const icalData = await blackboard_scrape();
   const jcalData = await ICAL.parse(icalData);
 
   const comp = new ICAL.Component(jcalData);
@@ -25,4 +23,6 @@ const { blackboard_scrape } = require("./blackboard_scrape");
     });
   });
   console.log(assignments);
-})().catch(console.error.bind());
+}
+
+exports.ical_parse = ical_parse;
