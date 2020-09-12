@@ -150,12 +150,12 @@
     top: -0.5em;
   }
   a {
-    color: #4e73df;
+    color: #44bcd8;
     text-decoration: none;
     background-color: transparent;
   }
   a:hover {
-    color: #224abe;
+    color: #8189a1;
     text-decoration: underline;
   }
   a:not([href]) {
