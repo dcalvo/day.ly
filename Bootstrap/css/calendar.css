@@ -2,6 +2,20 @@
     font-weight: bold;
     color: black;
 }
+
+.calTask {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 30px;
+    /*word-wrap: break-word;*/
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+    margin-right: 50px;
+  }
+
 .calRow {
     display: flex;
     color: red;
@@ -11,7 +25,7 @@
 .calCol {
     display: flex;
     color: #44bcd8;
-    justify-content: center;
+    justify-content: left;
     width: 200px;
     height: 150px;
     border: solid 1px;
@@ -26,7 +40,7 @@
 .day {
     font-size: larger;
     color: #858796;
-    padding-right: 170px;
+    padding-left: 5px;
     padding-top: 5px;
 }
 .calColGreyed {
