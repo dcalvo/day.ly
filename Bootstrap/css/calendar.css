@@ -38,6 +38,8 @@
 }
 
 .weekDay {
-    display: flex;
-    justify-content: left;
+    display:flex;       
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
