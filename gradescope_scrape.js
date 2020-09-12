@@ -36,7 +36,7 @@ async function getClasses(){
       var assignmentTitleShell = await assignmentList[j].$('th');
       try{
         var assignmentTitle = await assignmentTitleShell.$eval('a', element => element.innerHTML);
-        // console.log(assignmentTitle);
+        console.log(assignmentTitle);
       }
       catch{
 
@@ -44,10 +44,10 @@ async function getClasses(){
 
       var assignmentStatusShell = await assignmentList[j].$('td');
       var assignmentStatus = await assignmentStatusShell.$eval('div', element => element.innerHTML);
-      // console.log(assignmentStatus);
+      console.log(assignmentStatus);
 
       try{
-        var dueDateShell = await assignmentList[j].$('td.sorting_1.sorting_2 > div > div');
+        var dueDateShell = await assignmentList[j].$('td.sorting_1.sorting_2 > div > .progressBar--caption');
         var dueDate = await dueDateShell.$eval('span.submissionTimeChart--dueDate', element => element.innerHTML);
         console.log(dueDate);
       }
