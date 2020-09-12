@@ -53,7 +53,7 @@ async function getClasses(){
       }
       catch{
 
-          
+          console.log("bad date");
       }
       //#assignments-student-table > tbody > tr:nth-child(1) > td.sorting_1.sorting_2 > div > div > span.submissionTimeChart--dueDate
 
