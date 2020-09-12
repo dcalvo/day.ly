@@ -1,7 +1,8 @@
 const puppeteer = require("puppeteer");
 const creds = require("../creds");
-const download = require("./download_url");
-(async () => {
+const { downloadFromUrl } = require("./download_url");
+
+async function blackboard_scrape() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://blackboard.jhu.edu/webapps/calendar/viewPersonal");
@@ -18,6 +19,7 @@ const download = require("./download_url");
     await page.type("#i0118", creds.password); // password field
     await page.click("#idSIButton9"); // submit
   }
+
   await page.waitForNavigation({
     waitUntil: "networkidle0",
   });
@@ -28,8 +30,34 @@ const download = require("./download_url");
   const ical = await page.evaluate(
     () => document.querySelector("#icalurlid").textContent // get ical url
   );
-  console.log(ical);
-  download.downloadFromUrl(ical, "./ical.ics");
+
+  // oh my god please kill me
+  const getData = async () => {
+    return await page.evaluate(async (ical) => {
+      return await new Promise((resolve) => {
+        fetch(ical, {
+          headers: {
+            accept: "*/*",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "no-cors",
+          },
+          referrer: "https://blackboard.jhu.edu/webapps/calendar/viewPersonal",
+          referrerPolicy: "no-referrer-when-downgrade",
+          body: null,
+          method: "GET",
+          mode: "no-cors",
+          credentials: "include",
+        })
+          .then((response) => response.blob())
+          .then((blob) => resolve(blob.text()));
+      });
+    }, ical);
+  };
+  const icalData = await getData();
   await page.screenshot({ path: "example.png" });
   await browser.close();
-})();
+  //downloadFromUrl(ical, "./ical.ics");
+  return icalData;
+}
+
+exports.blackboard_scrape = blackboard_scrape;
