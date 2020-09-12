@@ -13,10 +13,10 @@ async function blackboard_scrape(count = 0) {
       waitUntil: "networkidle0",
     });
     await page.waitForSelector("#i0116"); // username field
-    await page.type("#i0116", creds.username);
+    await page.type("#i0116", creds.BlackBoard.username);
     await page.click("#idSIButton9"); // next
     await page.waitForSelector("#i0118", { visible: true }); // password field
-    await page.type("#i0118", creds.password);
+    await page.type("#i0118", creds.BlackBoard.password);
     await page.waitFor(3000); // required wait time for JS
     await page.click("#idSIButton9"); // next
   }
