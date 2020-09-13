@@ -14,6 +14,7 @@ async function ical_parse(icalData) {
       assignment: assignment,
       class: null,
       dueDate: {
+        year: dueDateObject.year,
         month: dueDateObject.month,
         day: dueDateObject.day,
         hour: dueDateObject.hour,
