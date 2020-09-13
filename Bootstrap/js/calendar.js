@@ -1,3 +1,5 @@
+const e = require("express");
+
 // fetches the current date
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -28,7 +30,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
 
-        if (today.getMonth() == bb[i].dueDate.month) {
+        if ((today.getFullYear == bb[i].dueDate.year) && (today.getMonth() == bb[i].dueDate.month)) {
 
             // Instantiating all HTML elements
 
@@ -50,13 +52,29 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
             // Converting time to string
             if (time.hour == 12) {
-                taskTime.innerHTML = "" + 12 + time.minute + "PM";
+                if (time.minute != 0) {
+                    taskTime.innerHTML = "" + 12 + ":" + time.minute + "PM";
+                }
+                else {
+                    taskTime.innerHTML = "" + 12 + ":" + 00 + "PM";
+                }
+
             }
             if (time.hour < 12) {
-                taskTime.innerHTML = "" + time.hour + time.minute + "AM";
+                if (time.minute != 0) {
+                    taskTime.innerHTML = "" + time.hour + ":" + time.minute + "AM";
+                }
+                else {
+                    taskTime.innerHTML = "" + time.hour + ":" + 00 + "AM";
+                }
             }
             else {
-                taskTime.innerHTML = "" + (time.hour - 12) + time.minute + "PM";
+                if (time.minute != 0) {
+                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + time.minute + "PM";
+                }
+                else {
+                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + 00 + "PM";
+                }
             }
 
             // Appending new elements to calendar div
