@@ -17,13 +17,15 @@ for (var j = 0; j < cols.length; j++) {
 // Refresh function; populates calendar
 document.getElementById("refresh").addEventListener("click", async function () {
 
-    // begin loading here; perhaps grey out or just have cool loading thing from NATo project
+    document.getElementById("refresh").src = "img/refresh.gif";
+    document.getElementById("refresh").style.transform = "scale(1.5)";
 
+    // begin loading here; perhaps grey out or just have cool loading thing from NATo project
     let bbRequest = await fetch("http://localhost:3000/api/blackboard");
     let gsRequest = await fetch("http://localhost:3000/api/gradescope");
 
-    bb = await bbRequest.json();
-    gs = await gsRequest.json();
+    let bb = await bbRequest.json();
+    let gs = await gsRequest.json();
 
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
@@ -142,4 +144,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
         }
     }
+
+    document.getElementById("refresh").src = "img/refresh.png";
+    document.getElementById("refresh").style.transform = "scale(1)";
 });
