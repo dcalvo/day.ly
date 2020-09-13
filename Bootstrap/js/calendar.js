@@ -1,3 +1,5 @@
+var stringSimilarity = require('string-similarity');
+
 // fetches the current date
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -14,7 +16,7 @@ for (var j = 0; j < cols.length; j++) {
     }
 }
 
-// Grab today and the next 6 days for week view 
+// Grab today and the next 6 days for week view
 var weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -45,10 +47,12 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
     // begin loading here; perhaps grey out or just have cool loading thing from NATo project
     let bbRequest = await fetch("http://localhost:3000/api/blackboard");
-    //let gsRequest = await fetch("http://localhost:3000/api/gradescope");
+    let gsRequest = await fetch("http://localhost:3000/api/gradescope");
+    let sisRequest = await fetch("httpL//localhost:3000/api/sis");
 
     let bb = await bbRequest.json();
-    //let gs = await gsRequest.json();
+    let gs = await gsRequest.json();
+    let sis = await sisRequest.json();
 
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
@@ -110,11 +114,11 @@ document.getElementById("refresh").addEventListener("click", async function () {
             task.appendChild(taskContent);
             div.appendChild(task);
 
-            // Populate week-view 
+            // Populate week-view
 
             if ((bb[i].dueDate.day >= today.getDate()) && (bb[i].dueDate.day <= today.getDate() + 6)) {
 
-                // Fill each weekday div with predetermined structure
+                // Instantiate new elements
 
                 let weekDays = document.getElementsByClassName("weekDay");
                 let structure = `<div class="card border-left-warning h-100 w-175 py-2">
@@ -139,6 +143,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
                         weekDays[w].innerHTML += structure;
                     }
                 }
+
 
             }
         }
