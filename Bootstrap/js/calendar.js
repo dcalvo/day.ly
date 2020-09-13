@@ -10,7 +10,6 @@ let cols = document.querySelectorAll(".calCol");
 for (var j = 0; j < cols.length; j++) {
     if (cols[j].querySelector("div").innerHTML == ("" + today.getDate())) {
         cols[j].querySelector("div").id = "today";
-        console.log(cols[j]);
         break;
     }
 }
