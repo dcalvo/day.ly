@@ -242,8 +242,68 @@ document.getElementById("refresh").addEventListener("click", async function () {
   document.getElementById("refresh").src = "img/refresh.png";
   document.getElementById("refresh").style.transform = "scale(1)";
 
+  var date = new Date();
   var taskCards = document.getElementsByClassName("calTaskCard");
   for (var i = 0; i < taskCards.length; i++) {
-    taskCards[i].addEventListener("click", displayDate);
+    taskCards[i].addEventListener("click", function(){
+
+      console.log("click!");
+      var assignmentName = this.querySelector('.taskTitle').innerHTML;
+      var dueDate = getMonthName(date.getMonth()) + " " + this.parentElement.parentElement.querySelector('.day').innerHTML + ", at " + this.querySelector('.taskTime').innerHTML;
+      var card = `
+        <div class="modBox">
+          <div class="modContent">
+            <div class="modTopBar">
+              <p class="modTaskTitle">${assignmentName}</p>
+              <span class="closeButton" onclick = "hide()"><sup>x</sup></span>
+            </div>
+            <p class="modDueDate">${dueDate}</p>
+            <p class="modCourse">Course Title</p>
+            <div class="modColorPallette">
+              <div class="modColorButton"></div>
+            </div>
+            <p class="modTaskSource">gathered from this website</p>
+          </div>
+        </div>`
+      document.getElementById("myModal").innerHTML = card;
+      document.getElementById("myModal").style.display = "block";
+
+    });
   }
 });
+
+function hide(){
+
+  document.getElementById('myModal').style.display = "none";
+
+}
+
+function getMonthName(monthNum){
+
+  switch(monthNum){
+    case 0:
+      return "January";
+    case 1:
+      return "February";
+    case 2:
+      return "March";
+    case 3:
+      return "April";
+    case 4:
+      return "May";
+    case 5:
+      return "June";
+    case 6:
+      return "July";
+    case 7:
+      return "August";
+    case 8:
+      return "September";
+    case 9:
+      return "October";
+    case 10:
+      return "November";
+    case 11:
+      return "December";
+  }
+}
