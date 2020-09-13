@@ -26,7 +26,7 @@
     border: 1px solid #e3e6f0;
     border-radius: 0.35rem;
     padding-top: 2px;
-    border-left: 0.25rem solid #f6c23e;
+    border-left: 0.25rem solid red;
 }
 
 .calTaskContent {
@@ -46,6 +46,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    color: #44bcd8;
 }
 
 .taskTime {
@@ -55,11 +56,11 @@
     min-width: 60px;
     font-size: small;
     text-align: right;
+    color: #44bcd8;
 }
 
 .calRow {
     display: flex;
-    color: red;
     text-align: center;
     justify-content: center;
 }
@@ -67,7 +68,8 @@
 .calCol {
     display: flex;
     flex-direction: column;
-    color: #44bcd8;
+    /*color: #44bcd8;*/
+    color: gray;
     justify-content: left;
     width: 200px;
     height: 150px;
@@ -97,7 +99,7 @@
     width: 200px;
     height: 150px;
     color: #C8C8C8;
-    border: solid 1px #44bcd8;
+    border: solid 1px gray/*#44bcd8*/;
     padding-left: 5px;
     padding-top: 5px;
     background-image: url(../img/disabledStripe.jpg);
