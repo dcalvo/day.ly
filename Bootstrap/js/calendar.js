@@ -1,7 +1,8 @@
 // fetches the current date
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-console.log(date);
+
+
 
 // An array of each active column in the calendar
 let cols = document.querySelectorAll(".calCol");
@@ -52,6 +53,9 @@ document.getElementById("refresh").addEventListener("click", async function () {
     let bb = await bbRequest.json();
     let gs = await gsRequest.json();
     let sis = await sisRequest.json();
+
+    console.log(sis);
+    console.log(gs);
 
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
@@ -150,11 +154,8 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
     // Gradescope calendar fill
     for (var i = 0; i < gs.length; i++) {
-
-        if ((today.getFullYear() == gs[i].dueDate.year) && ((today.getMonth() + 1) == gs[i].dueDate.month)) {
-
+        if (((today.getMonth() + 1) == gs[i].dueDate.month)) {
             // Instantiating all HTML elements
-
             let assignment = gs[i].assignment;
             let time = gs[i].dueDate;
             let div = cols[gs[i].dueDate.day - 1].getElementsByClassName("calTaskWrapper")[0];
