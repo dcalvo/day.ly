@@ -58,9 +58,9 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
   let bb = await bbRequest.json();
   let gs = await gsRequest.json();
-  let sis = await sisRequest.json();
+  //let sis = await sisRequest.json();
 
-  console.log(sis);
+  //console.log(sis);
   console.log(gs);
 
   // Blackboard calendar fill
