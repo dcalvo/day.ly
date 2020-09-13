@@ -8,20 +8,54 @@
     flex-direction: column;
     width: 100%;
     overflow-y: scroll;
+    justify-content: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.calTaskWrapper::-webkit-scrollbar {
+    display: none;
 }
 
-.calTask {
-    position: relative;
+.calTaskCard {
     display: flex;
-    flex-direction: column;
-    height: 30px;
+    flex-direction: row;
+    height: 20px;
+    width: 100%;
     /*word-wrap: break-word;*/
     background-color: #fff;
-    background-clip: border-box;
     border: 1px solid #e3e6f0;
     border-radius: 0.35rem;
-    margin-right: 50px;
-  }
+    padding-top: 2px;
+    border-left: 0.25rem solid #f6c23e;
+}
+
+.calTaskContent {
+    display:flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    justify-content: right;
+}
+
+.taskTitle {
+    display:flex;
+    text-align: left;
+    padding-left: 5px;
+    min-width: 0;
+    width:100%;
+    font-size: small;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.taskTime {
+    display:flex;
+    white-space: nowrap;
+    padding-right: 5px;
+    min-width: 60px;
+    font-size: small;
+    text-align: right;
+}
 
 .calRow {
     display: flex;
@@ -29,6 +63,7 @@
     text-align: center;
     justify-content: center;
 }
+
 .calCol {
     display: flex;
     flex-direction: column;
@@ -54,6 +89,7 @@
     padding-left: 5px;
     padding-top: 5px;
 }
+
 .calColGreyed {
     display: flex;
     justify-content: center;
