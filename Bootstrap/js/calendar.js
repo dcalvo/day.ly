@@ -33,6 +33,7 @@ for (var k = 1; k <= 6; k++) {
 
 // Fill HTML with Today and next 6 days
 let roots = document.getElementsByClassName("weekHeader");
+roots[0].id = "today";
 for (var q = 0; q < weekNames.length; q++) {
     roots[q].innerHTML = weekNames[q];
 }
