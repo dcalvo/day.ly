@@ -13,6 +13,10 @@ async function sis_scrape(browser) {
     await page.type("input[type='password']", creds.BlackBoard.password); // password field
     await page.click("#idSIButton9"); // next
   }
+  await page.waitFor(2000);
+  if (page.url().includes("PendingNotifications")) {
+    await page.click("#ctl00_contentPlaceHolder_btnContinueToIsis");
+  }
   await page.waitForSelector(
     "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)"
   );
