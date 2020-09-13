@@ -72,6 +72,7 @@
     width: 200px;
     height: 150px;
     border: solid 1px;
+    min-width:0;
 }
 .calDay {
     display: flex;
@@ -91,13 +92,13 @@
 
 .calColGreyed {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     font-size: larger;
     width: 200px;
     height: 150px;
     color: #C8C8C8;
     border: solid 1px #44bcd8;
-    padding-right: 170px;
+    padding-left: 5px;
     padding-top: 5px;
     background-image: url(../img/disabledStripe.jpg);
     background-size: 25%;
