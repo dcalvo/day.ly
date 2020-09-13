@@ -1,3 +1,8 @@
+a.linkMe:link {text-decoration:none; font-weight:normal; color: gray;}
+a.linkMe:visited {text-decoration:none; font-weight:normal; color: gray;}
+a.linkMe:hover {text-decoration:none; font-weight:normal; color: gray;}
+a.linkMe:active {text-decoration:none; font-weight:normal; color: gray;}
+
 .messageContainer{
 
   background-color: #44bcd8;
@@ -10,9 +15,9 @@
   margin: 0 auto;
   overflow: auto;
   padding-left: 38px;
-  padding-top: 3px;
+  padding-top: 25px;
+  padding-bottom: 20px;
   border-top: 1px solid white;
-
 }
 
 .messages{
@@ -39,14 +44,14 @@
   padding-right: 10px;
 }
 
-.message{
+.message {
   position:relative;
   width: 100%;
   height: 95px;
   border-radius: .7rem;
   border-bottom-left-radius: 0px;
   background-color: white;
-  margin-top: 15px;
+  margin-bottom: 30px;
 }
 
 .message:after {

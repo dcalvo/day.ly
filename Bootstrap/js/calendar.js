@@ -40,13 +40,15 @@ for (var q = 0; q < weekNames.length; q++) {
 // Refresh function; populates calendar
 document.getElementById("refresh").addEventListener("click", async function () {
 
-    // begin loading here; perhaps grey out or just have cool loading thing from NATo project
+    document.getElementById("refresh").src = "img/refresh.gif";
+    document.getElementById("refresh").style.transform = "scale(1.5)";
 
+    // begin loading here; perhaps grey out or just have cool loading thing from NATo project
     let bbRequest = await fetch("http://localhost:3000/api/blackboard");
     let gsRequest = await fetch("http://localhost:3000/api/gradescope");
 
-    bb = await bbRequest.json();
-    gs = await gsRequest.json();
+    let bb = await bbRequest.json();
+    let gs = await gsRequest.json();
 
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
@@ -115,23 +117,24 @@ document.getElementById("refresh").addEventListener("click", async function () {
                 // Instantiate new elements
 
                 let weekDays = getElementsByClassName("weekDay");
-                let structure = `<div class="card border-left-warning h-100 w-175 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
+                let structure =
+                `<div class="card border-left-warning h-100 w-175 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
+                            </div>
+                         </div>
                         </div>
-                      </div>
+                        <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
-                  </div>
-                </div>
-              </div>`
+                </div>`
                 for (var w = 0; w < weekDays.length; w++) {
                     weekDays[0].innerHTML = structure;
                 }
@@ -199,4 +202,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
         }
     }
+
+    document.getElementById("refresh").src = "img/refresh.png";
+    document.getElementById("refresh").style.transform = "scale(1)";
 });
