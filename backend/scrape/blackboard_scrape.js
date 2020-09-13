@@ -1,7 +1,7 @@
 const creds = require("../../creds");
 const { ical_parse } = require("../utils/ical_parse");
 
-async function blackboard_scrape(browser, count = 0) {
+async function blackboard_scrape(browser) {
   const page = await browser.newPage();
   await page.goto("https://blackboard.jhu.edu/webapps/calendar/viewPersonal");
   await page.waitFor(2000);
@@ -41,12 +41,7 @@ async function blackboard_scrape(browser, count = 0) {
 
   // verify iCal integrity
   if (!icalData.includes("BEGIN:VCALENDAR")) {
-    if (count >= 3) {
-      throw "BlackBoard iCal retrieval failed!";
-    }
-    count++;
-    console.log("iCal retrieval failed, retrying attempt #" + count + "...");
-    icalData = await blackboard_scrape(browser, count);
+    throw "BlackBoard iCal retrieval failed!";
   }
 
   await page.close();

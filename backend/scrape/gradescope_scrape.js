@@ -1,6 +1,6 @@
 const creds = require("../../creds");
 
-async function gradescope_scrape(browser, count = 0) {
+async function gradescope_scrape(browser) {
   const page = await browser.newPage();
   await page.goto("https://www.gradescope.com/login");
   await page.type("#session_email", creds.Gradescope.username);

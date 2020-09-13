@@ -1,6 +1,6 @@
 const creds = require("../../creds");
 
-async function sis_scrape(browser, count = 0) {
+async function sis_scrape(browser) {
   const page = await browser.newPage();
   await page.goto("https://sis.jhu.edu/");
   await page.click("#linkSignIn");
