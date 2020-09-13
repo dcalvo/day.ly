@@ -46,9 +46,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
     document.getElementById("refresh").style.transform = "scale(1.5)";
 
     // begin loading here; perhaps grey out or just have cool loading thing from NATo project
-    let bbRequest = await fetch("http://localhost:3000/api/blackboard");
-    let gsRequest = await fetch("http://localhost:3000/api/gradescope");
-    let sisRequest = await fetch("http://localhost:3000/api/sis");
+    let [bbRequest, gsRequest, sisRequest] = await Promise.all([fetch("http://localhost:3000/api/blackboard"),fetch("http://localhost:3000/api/gradescope"),fetch("http://localhost:3000/api/sis")]);
 
     let bb = await bbRequest.json();
     let gs = await gsRequest.json();
@@ -83,29 +81,29 @@ document.getElementById("refresh").addEventListener("click", async function () {
             // Converting time to string
             var timeString = "";
             if (time.hour == 12) {
-                if (time.minute != 0) {
+                if (time.minute !== "00") {
                     timeString = "" + 12 + ":" + time.minute + "PM";
                 }
                 else {
-                    timeString = "" + 12 + ":" + 00 + "PM";
+                    timeString = "" + 12 + ":" + "00" + "PM";
                 }
 
             }
             else {
                 if (time.hour < 12) {
-                    if (time.minute != 0) {
+                    if (time.minute !== "00") {
                         timeString = "" + time.hour + ":" + time.minute + "AM";
                     }
                     else {
-                        timeString = "" + time.hour + ":" + 00 + "AM";
+                        timeString = "" + time.hour + ":" + "00" + "AM";
                     }
                 }
                 else {
-                    if (time.minute != 0) {
+                    if (time.minute !== "00") {
                         timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
                     }
                     else {
-                        timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
+                        timeString = "" + (time.hour - 12) + ":" + "00" + "PM";
                     }
                 }
             }
@@ -175,29 +173,29 @@ document.getElementById("refresh").addEventListener("click", async function () {
             // Converting time to string
             var timeString = "";
             if (time.hour == 12) {
-                if (time.minute != 0) {
+                if (time.minute !== "00") {
                     timeString = "" + 12 + ":" + time.minute + "PM";
                 }
                 else {
-                    timeString = "" + 12 + ":" + 00 + "PM";
+                    timeString = "" + 12 + ":" + "00" + "PM";
                 }
 
             }
             else {
                 if (time.hour < 12) {
-                    if (time.minute != 0) {
+                    if (time.minute !== "00") {
                         timeString = "" + time.hour + ":" + time.minute + "AM";
                     }
                     else {
-                        timeString = "" + time.hour + ":" + 00 + "AM";
+                        timeString = "" + time.hour + ":" + "00" + "AM";
                     }
                 }
                 else {
-                    if (time.minute != 0) {
+                    if (time.minute !== "00") {
                         timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
                     }
                     else {
-                        timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
+                        timeString = "" + (time.hour - 12) + ":" + "00" + "PM";
                     }
                 }
             }
