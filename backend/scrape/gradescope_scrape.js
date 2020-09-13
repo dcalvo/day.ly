@@ -1,10 +1,8 @@
 const puppeteer = require("puppeteer");
 const creds = require("../../creds");
-const fs = require("fs");
-const http = require("http");
-const https = require("https");
+const { writeToFile } = require("../utils/writeFile.js");
 
-async function getAssignments() {
+async function gradescope_scrape() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://www.gradescope.com/login");
@@ -107,7 +105,8 @@ async function getAssignments() {
 
   await browser.close();
 
-  return assignmentData;
+  //await writeToFile(assignmentData, "../data/gradescope.txt");
+  return JSON.stringify(assignmentData);
 }
 
 // getClasses();
@@ -192,14 +191,4 @@ function militaryTime(standardTime) {
   return [hour, minute];
 }
 
-function writeToFile(assignments, fileName) {
-  var json = JSON.stringify(assignments);
-  fs.writeFile(fileName, json, (err) => {
-    if (err) throw err;
-  });
-}
-
-async function writeAssignments() {
-  var assignments = await getAssignments();
-  writeToFile(assignments, "gradescope.txt");
-}
+exports.gradescope_scrape = gradescope_scrape;

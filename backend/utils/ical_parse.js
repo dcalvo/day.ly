@@ -1,5 +1,4 @@
 const ICAL = require("ical.js");
-const { writeToFile } = require("./writeFile.js");
 
 async function ical_parse(icalData) {
   // get iCal from BlackBoard
@@ -23,7 +22,7 @@ async function ical_parse(icalData) {
       origin: "BlackBoard",
     });
   });
-  writeToFile(assignments, 'blackboard.txt');
+  return assignments;
 }
 
 exports.ical_parse = ical_parse;

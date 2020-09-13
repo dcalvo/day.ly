@@ -1,6 +1,7 @@
 const puppeteer = require("puppeteer");
 const creds = require("../../creds");
 const { ical_parse } = require("../utils/ical_parse");
+const { writeToFile } = require("../utils/writeFile.js");
 
 async function blackboard_scrape(count = 0) {
   const browser = await puppeteer.launch();
@@ -41,7 +42,7 @@ async function blackboard_scrape(count = 0) {
       });
     }, ical);
   };
-  const icalData = await getData();
+  let icalData = await getData();
 
   // verify iCal integrity
   if (!icalData.includes("BEGIN:VCALENDAR")) {
@@ -55,9 +56,8 @@ async function blackboard_scrape(count = 0) {
 
   await browser.close();
   const parsedIcal = await ical_parse(icalData);
-  return parsedIcal;
+  //await writeToFile(parsedIcal, "../data/blackboard.txt");
+  return JSON.stringify(parsedIcal);
 }
-
-blackboard_scrape();
 
 exports.blackboard_scrape = blackboard_scrape;

@@ -1,5 +1,6 @@
 const puppeteer = require("puppeteer");
 const creds = require("../../creds");
+const { writeToFile } = require("../utils/writeFile.js");
 
 async function sis_scrape(count = 0) {
   const browser = await puppeteer.launch();
@@ -32,7 +33,7 @@ async function sis_scrape(count = 0) {
   await page.screenshot({ path: "./screenshot.png" });
   await page.waitForSelector(
     "#ctl00_contentPlaceHolder_DGStudClassSchedule > tbody",
-    { timeout: 5000 }
+    { timeout: 10000 }
   );
   const table = await page.$$(
     "#ctl00_contentPlaceHolder_DGStudClassSchedule > tbody > tr"
@@ -51,7 +52,8 @@ async function sis_scrape(count = 0) {
   }
 
   await browser.close();
-  return classes;
+  //await writeToFile(classes, "../data/sis.txt");
+  return JSON.stringify(classes);
 }
 
 exports.sis_scrape = sis_scrape;
