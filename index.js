@@ -5,6 +5,7 @@ const path = require("path");
 const { getGroupmeMessages } = require("./backend/messaging/groupme");
 const { blackboard_scrape } = require("./backend/scrape/blackboard_scrape");
 const { gradescope_scrape } = require("./backend/scrape/gradescope_scrape");
+const { sis_scrape } = require("./backend/scrape/sis_scrape");
 
 const app = express();
 const port = 3000;
@@ -27,8 +28,7 @@ app.get("/oauth/groupme", async function (req, res) {
 app.get("/api/groupme", async function (req, res) {
   console.log(GROUPME_USER_TOKEN);
   if (GROUPME_USER_TOKEN != null) {
-    const messages = await getGroupmeMessages(GROUPME_USER_TOKEN);
-    res.send(messages);
+    res.send(await getGroupmeMessages(GROUPME_USER_TOKEN));
   } else {
     res.send("GROUPME_USER_TOKEN NOT SET");
   }
@@ -36,38 +36,15 @@ app.get("/api/groupme", async function (req, res) {
 
 // send blackboard scrape data
 app.get("/api/blackboard", async function (req, res) {
-  const filePath = path.join(__dirname, "backend/data/blackboard.txt");
-
-  if (!fileSystem.exists(filePath)) {
-    blackboard_scrape();
-  }
-
-  const stat = fileSystem.statSync(filePath);
-
-  res.writeHead(200, {
-    "Content-Type": "text/plain",
-    "Content-Length": stat.size,
-  });
-
-  const readStream = fileSystem.createReadStream(filePath);
-  readStream.pipe(res);
+  res.send(await blackboard_scrape());
 });
 
 // send gradescope scrape data
 app.get("/api/gradescope", async function (req, res) {
-  const filePath = path.join(__dirname, "backend/data/gradescope.txt");
+  res.send(await gradescope_scrape());
+});
 
-  if (!fileSystem.exists(filePath)) {
-    gradescope_scrape();
-  }
-
-  const stat = fileSystem.statSync(filePath);
-
-  res.writeHead(200, {
-    "Content-Type": "text/plain",
-    "Content-Length": stat.size,
-  });
-
-  const readStream = fileSystem.createReadStream(filePath);
-  readStream.pipe(res);
+// send SIS scrape data
+app.get("/api/sis", async function (req, res) {
+  res.send(await sis_scrape());
 });
