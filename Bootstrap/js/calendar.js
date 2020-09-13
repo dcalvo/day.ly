@@ -45,10 +45,14 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
   console.time("fetches");
   // begin loading here; perhaps grey out or just have cool loading thing from NATo project
-  let [bbRequest, gsRequest, sisRequest] = await Promise.all([
+  //   let [bbRequest, gsRequest, sisRequest] = await Promise.all([
+  //     fetch("http://localhost:3000/api/blackboard"),
+  //     fetch("http://localhost:3000/api/gradescope"),
+  //     fetch("http://localhost:3000/api/sis"),
+  //   ]);
+  let [bbRequest, gsRequest] = await Promise.all([
     fetch("http://localhost:3000/api/blackboard"),
     fetch("http://localhost:3000/api/gradescope"),
-    fetch("http://localhost:3000/api/sis"),
   ]);
   console.timeEnd("fetches");
 
@@ -245,11 +249,15 @@ document.getElementById("refresh").addEventListener("click", async function () {
   var date = new Date();
   var taskCards = document.getElementsByClassName("calTaskCard");
   for (var i = 0; i < taskCards.length; i++) {
-    taskCards[i].addEventListener("click", function(){
-
+    taskCards[i].addEventListener("click", function () {
       console.log("click!");
-      var assignmentName = this.querySelector('.taskTitle').innerHTML;
-      var dueDate = getMonthName(date.getMonth()) + " " + this.parentElement.parentElement.querySelector('.day').innerHTML + ", at " + this.querySelector('.taskTime').innerHTML;
+      var assignmentName = this.querySelector(".taskTitle").innerHTML;
+      var dueDate =
+        getMonthName(date.getMonth()) +
+        " " +
+        this.parentElement.parentElement.querySelector(".day").innerHTML +
+        ", at " +
+        this.querySelector(".taskTime").innerHTML;
       var card = `
         <div class="modBox">
           <div class="modContent">
@@ -264,23 +272,19 @@ document.getElementById("refresh").addEventListener("click", async function () {
             </div>
             <p class="modTaskSource">gathered from this website</p>
           </div>
-        </div>`
+        </div>`;
       document.getElementById("myModal").innerHTML = card;
       document.getElementById("myModal").style.display = "block";
-
     });
   }
 });
 
-function hide(){
-
-  document.getElementById('myModal').style.display = "none";
-
+function hide() {
+  document.getElementById("myModal").style.display = "none";
 }
 
-function getMonthName(monthNum){
-
-  switch(monthNum){
+function getMonthName(monthNum) {
+  switch (monthNum) {
     case 0:
       return "January";
     case 1:
