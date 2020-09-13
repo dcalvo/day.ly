@@ -14,6 +14,29 @@ for (var j = 0; j < cols.length; j++) {
     }
 }
 
+// Grab today and the next 6 days for week view 
+var weekday = new Array(7);
+weekday[0] = "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
+
+var weekNames = new Array(7);
+weekNames[0] = "Today";
+for (var k = 1; k <= 6; k++) {
+    var n = weekday[today.getDay() + k];
+    weekNames[k] = n;
+}
+
+// Fill HTML with Today and next 6 days
+let roots = document.getElementsByClassName("weekHeader");
+for (var q = 0; q < weekNames.length; q++) {
+    roots[q].innerHTML = weekNames[q];
+}
+
 // Refresh function; populates calendar
 document.getElementById("refresh").addEventListener("click", async function () {
 
@@ -51,31 +74,35 @@ document.getElementById("refresh").addEventListener("click", async function () {
             taskTitle.innerHTML = assignment;
 
             // Converting time to string
+            var timeString = "";
             if (time.hour == 12) {
                 if (time.minute != 0) {
-                    taskTime.innerHTML = "" + 12 + ":" + time.minute + "PM";
+                    timeString = "" + 12 + ":" + time.minute + "PM";
                 }
                 else {
-                    taskTime.innerHTML = "" + 12 + ":" + 00 + "PM";
+                    timeString = "" + 12 + ":" + 00 + "PM";
                 }
 
             }
-            if (time.hour < 12) {
-                if (time.minute != 0) {
-                    taskTime.innerHTML = "" + time.hour + ":" + time.minute + "AM";
-                }
-                else {
-                    taskTime.innerHTML = "" + time.hour + ":" + 00 + "AM";
-                }
-            }
             else {
-                if (time.minute != 0) {
-                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + time.minute + "PM";
+                if (time.hour < 12) {
+                    if (time.minute != 0) {
+                        timeString = "" + time.hour + ":" + time.minute + "AM";
+                    }
+                    else {
+                        timeString = "" + time.hour + ":" + 00 + "AM";
+                    }
                 }
                 else {
-                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + 00 + "PM";
+                    if (time.minute != 0) {
+                        timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
+                    }
+                    else {
+                        timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
+                    }
                 }
             }
+            taskTime.innerHTML = timeString;
 
             // Appending new elements to calendar div
             taskContent.appendChild(taskTime);
@@ -83,6 +110,37 @@ document.getElementById("refresh").addEventListener("click", async function () {
             task.appendChild(taskContent);
             div.appendChild(task);
 
+            // Populate week-view 
+
+            if (bb[i].dueDate.day >= today.getDay() && bb[i].dueDate.day <= today.getDay() + 6) {
+
+                // Instantiate new elements
+
+                let weekDays = getElementsByClassName("weekDay");
+                let structure =
+                `<div class="card border-left-warning h-100 w-175 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
+                            </div>
+                         </div>
+                        </div>
+                        <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    </div>
+                </div>`
+                for (var w = 0; w < weekDays.length; w++) {
+                    weekDays[0].innerHTML = structure;
+                }
+
+
+            }
         }
     }
 
