@@ -45,10 +45,10 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
     // begin loading here; perhaps grey out or just have cool loading thing from NATo project
     let bbRequest = await fetch("http://localhost:3000/api/blackboard");
-    let gsRequest = await fetch("http://localhost:3000/api/gradescope");
+    //let gsRequest = await fetch("http://localhost:3000/api/gradescope");
 
     let bb = await bbRequest.json();
-    let gs = await gsRequest.json();
+    //let gs = await gsRequest.json();
 
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
@@ -112,13 +112,12 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
             // Populate week-view 
 
-            if (bb[i].dueDate.day >= today.getDay() && bb[i].dueDate.day <= today.getDay() + 6) {
-                console.log(check);
+            if ((bb[i].dueDate.day >= today.getDate()) && (bb[i].dueDate.day <= today.getDate() + 6)) {
 
                 // Fill each weekday div with predetermined structure
 
-                let weekDays = getElementsByClassName("weekDay");
-                let structure =`<div class="card border-left-warning h-100 w-175 py-2">
+                let weekDays = document.getElementsByClassName("weekDay");
+                let structure = `<div class="card border-left-warning h-100 w-175 py-2">
                     <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -136,7 +135,9 @@ document.getElementById("refresh").addEventListener("click", async function () {
                     </div>
                 </div>`
                 for (var w = 0; w < weekDays.length; w++) {
-                    weekDays[0].innerHTML += structure;
+                    if (bb[i].dueDate.day == (today.getDate() + w)) {
+                        weekDays[w].innerHTML += structure;
+                    }
                 }
 
             }
@@ -144,97 +145,97 @@ document.getElementById("refresh").addEventListener("click", async function () {
     }
 
     // Gradescope calendar fill
-    for (var i = 0; i < gs.length; i++) {
+    // for (var i = 0; i < gs.length; i++) {
 
-        if ((today.getFullYear() == gs[i].dueDate.year) && ((today.getMonth() + 1) == gs[i].dueDate.month)) {
+    //     if ((today.getFullYear() == gs[i].dueDate.year) && ((today.getMonth() + 1) == gs[i].dueDate.month)) {
 
-            // Instantiating all HTML elements
+    //         // Instantiating all HTML elements
 
-            let assignment = gs[i].assignment;
-            let time = gs[i].dueDate;
-            let div = cols[gs[i].dueDate.day - 1].getElementsByClassName("calTaskWrapper")[0];
-            let task = document.createElement("div");
-            let taskContent = document.createElement("div");
-            let taskTime = document.createElement("div");
-            let taskTitle = document.createElement("div");
+    //         let assignment = gs[i].assignment;
+    //         let time = gs[i].dueDate;
+    //         let div = cols[gs[i].dueDate.day - 1].getElementsByClassName("calTaskWrapper")[0];
+    //         let task = document.createElement("div");
+    //         let taskContent = document.createElement("div");
+    //         let taskTime = document.createElement("div");
+    //         let taskTitle = document.createElement("div");
 
-            // Setting all classes for stylization
+    //         // Setting all classes for stylization
 
-            task.className = "calTaskCard";
-            taskContent.className = "calTaskContent";
-            taskTime.className = "taskTime";
-            taskTitle.className = "taskTitle";
-            taskTitle.innerHTML = assignment;
+    //         task.className = "calTaskCard";
+    //         taskContent.className = "calTaskContent";
+    //         taskTime.className = "taskTime";
+    //         taskTitle.className = "taskTitle";
+    //         taskTitle.innerHTML = assignment;
 
-            // Converting time to string
-            var timeString = "";
-            if (time.hour == 12) {
-                if (time.minute != 0) {
-                    timeString = "" + 12 + ":" + time.minute + "PM";
-                }
-                else {
-                    timeString = "" + 12 + ":" + 00 + "PM";
-                }
+    //         // Converting time to string
+    //         var timeString = "";
+    //         if (time.hour == 12) {
+    //             if (time.minute != 0) {
+    //                 timeString = "" + 12 + ":" + time.minute + "PM";
+    //             }
+    //             else {
+    //                 timeString = "" + 12 + ":" + 00 + "PM";
+    //             }
 
-            }
-            else {
-                if (time.hour < 12) {
-                    if (time.minute != 0) {
-                        timeString = "" + time.hour + ":" + time.minute + "AM";
-                    }
-                    else {
-                        timeString = "" + time.hour + ":" + 00 + "AM";
-                    }
-                }
-                else {
-                    if (time.minute != 0) {
-                        timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
-                    }
-                    else {
-                        timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
-                    }
-                }
-            }
-            taskTime.innerHTML = timeString;
+    //         }
+    //         else {
+    //             if (time.hour < 12) {
+    //                 if (time.minute != 0) {
+    //                     timeString = "" + time.hour + ":" + time.minute + "AM";
+    //                 }
+    //                 else {
+    //                     timeString = "" + time.hour + ":" + 00 + "AM";
+    //                 }
+    //             }
+    //             else {
+    //                 if (time.minute != 0) {
+    //                     timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
+    //                 }
+    //                 else {
+    //                     timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
+    //                 }
+    //             }
+    //         }
+    //         taskTime.innerHTML = timeString;
 
-            // Appending new elements to calendar div
-            taskContent.appendChild(taskTime);
-            taskContent.appendChild(taskTitle);
-            task.appendChild(taskContent);
-            div.appendChild(task);
+    //         // Appending new elements to calendar div
+    //         taskContent.appendChild(taskTime);
+    //         taskContent.appendChild(taskTitle);
+    //         task.appendChild(taskContent);
+    //         div.appendChild(task);
 
-            // Populate week-view 
+    //         // Populate week-view 
 
-            if (gs[i].dueDate.day >= today.getDay() && gs[i].dueDate.day <= today.getDay() + 6) {
+    //         if (gs[i].dueDate.day >= today.getDay() && gs[i].dueDate.day <= today.getDay() + 6) {
 
-                // Fill each weekday div with predetermined structure
+    //             // Fill each weekday div with predetermined structure
 
-                let weekDays = getElementsByClassName("weekDay");
-                let structure =
-                    `<div class="card border-left-warning h-100 w-175 py-2">
-                    <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
-                            </div>
-                         </div>
-                        </div>
-                        <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>`
-                for (var w = 0; w < weekDays.length; w++) {
-                    weekDays[0].innerHTML += structure;
-                }
+    //             let weekDays = document.getElementsByClassName("weekDay");
+    //             let structure =
+    //                 `<div class="card border-left-warning h-100 w-175 py-2">
+    //                 <div class="card-body">
+    //                 <div class="row no-gutters align-items-center">
+    //                     <div class="col mr-2">
+    //                     <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
+    //                     <div class="row no-gutters align-items-center">
+    //                         <div class="col-auto">
+    //                         <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
+    //                         </div>
+    //                      </div>
+    //                     </div>
+    //                     <div class="col-auto">
+    //                     <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+    //                     </div>
+    //                 </div>
+    //                 </div>
+    //             </div>`
+    //             for (var w = 0; w < weekDays.length; w++) {
+    //                 weekDays[0].innerHTML += structure;
+    //             }
 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 
     document.getElementById("refresh").src = "img/refresh.png";
     document.getElementById("refresh").style.transform = "scale(1)";
