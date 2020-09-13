@@ -244,4 +244,11 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
     document.getElementById("refresh").src = "img/refresh.png";
     document.getElementById("refresh").style.transform = "scale(1)";
+
+
+    var taskCards = document.getElementsByClassName("calTaskCard");
+    for(var i = 0; i < taskCards.length; i++){
+        taskCards[i].addEventListener("click", displayDate);
+    }
+
 });
