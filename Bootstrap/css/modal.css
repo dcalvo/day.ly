@@ -19,7 +19,7 @@
     margin: auto;
     padding: 5px;
     width: 30%;
-    height: 20%;
+    height: 150px;
     background-color: #fff;
     border: 1px solid #e3e6f0;
     border-radius: 1rem;
@@ -37,7 +37,10 @@
     font-size: x-large;
     font-weight: bold;
     margin-right: auto;
-    width: 50%;
+    width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom:0px;
 }
 
