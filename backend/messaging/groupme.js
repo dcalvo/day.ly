@@ -5,7 +5,7 @@ async function getGroupmeMessages(token) {
     `https://api.groupme.com/v3/groups?token=${token}&omit=memberships`
   );
   const json = await response.json();
-  const groupsCount = 5;
+  const groupsCount = 6;
   let messages = [];
   for (let i = 0; i < groupsCount; i++) {
     const groupName = json.response[i].name;
@@ -13,7 +13,6 @@ async function getGroupmeMessages(token) {
     const lastMessagePreview = json.response[i].messages.preview;
     messages.push({ groupName, groupImg, lastMessagePreview });
   }
-  //await writeToFile(messages, "../data/groupme.txt");
   return JSON.stringify(messages);
 }
 
