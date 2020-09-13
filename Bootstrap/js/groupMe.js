@@ -8,7 +8,7 @@ async function populateMessages(){
   var messageArray = [];
   messageJSON = await messageStringData.json();
   console.log(messageJSON);
-  for(var i = 0; i < 5; i++){
+  for(var i = 0; i < 6; i++){
 
     var messageInfo = messageJSON[i];
     var groupName = messageInfo.groupName;
