@@ -266,11 +266,6 @@ document.getElementById("refresh").addEventListener("click", async function () {
               <span class="closeButton" onclick = "hide()"><sup>x</sup></span>
             </div>
             <p class="modDueDate">${dueDate}</p>
-            <p class="modCourse">Course Title</p>
-            <div class="modColorPallette">
-              <div class="modColorButton"></div>
-            </div>
-            <p class="modTaskSource">gathered from this website</p>
           </div>
         </div>`;
       document.getElementById("myModal").innerHTML = card;
