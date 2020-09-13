@@ -249,6 +249,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
   var date = new Date();
   var taskCards = document.getElementsByClassName("calTaskCard");
   for (var i = 0; i < taskCards.length; i++) {
+    taskCards[i].style.cursor = "pointer";
     taskCards[i].addEventListener("click", function () {
       console.log("click!");
       var assignmentName = this.querySelector(".taskTitle").innerHTML;
@@ -275,7 +276,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
 
   var weekTaskCards = document.getElementsByClassName("card");
   for(var i = 0; i < weekTaskCards.length; i++) {
-
+    weekTaskCards[i].style.cursor = "pointer";
     weekTaskCards[i].addEventListener("click", function(){
 
       var assignmentName = this.querySelector('.text-xs').innerHTML;
