@@ -1,40 +1,45 @@
-const puppeteer = require("puppeteer");
 const creds = require("../../creds");
 const { writeToFile } = require("../utils/writeFile.js");
 
-async function sis_scrape(count = 0) {
-  const browser = await puppeteer.launch();
+async function sis_scrape(browser, count = 0) {
   const page = await browser.newPage();
-  await page.goto(
-    "https://sis.jhu.edu/sswf/Framework/Authentication/UserGroups.aspx"
+  await page.goto("https://sis.jhu.edu/");
+  await page.click("#linkSignIn");
+  await page.waitFor(2000); // required wait time for JS
+  if (page.url().includes("microsoftonline")) {
+    await page.waitForSelector("input[type='email']"); // username field
+    await page.type("input[type='email']", creds.BlackBoard.username);
+    await page.click("#idSIButton9"); // next
+    await page.waitFor(2000); // required wait time for JS
+    await page.type("input[type='password']", creds.BlackBoard.password); // password field
+    await page.click("#idSIButton9"); // next
+  }
+  await page.waitForSelector(
+    "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)"
   );
-  await page.waitForNavigation({
-    waitUntil: "networkidle0",
-  });
 
-  // Navigate to student's enrollment summary
-  await page.waitForSelector("input[type='email']"); // username field
-  await page.type("input[type='email']", creds.BlackBoard.username);
-  await page.click("#idSIButton9"); // next
-  await page.type("input[type='password']", creds.BlackBoard.password); // password field
-  await page.waitFor(3000); // required wait time for JS
-  await page.click("#idSIButton9"); // submit
-  await page.waitForNavigation({
-    waitUntil: "networkidle0",
-  });
-  await page.goto(
-    "https://sis.jhu.edu/sswf/SSS/EntityClassSchedule/SSS_StudentClassScheduleOverView.aspx" // first time we get redirected
+  // activate dropdown
+  // await page.$eval(
+  //   "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)",
+  //   (el) => el.addClassName("open")
+  // );
+  await page.hover(
+    "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)"
   );
-  await page.goto(
-    "https://sis.jhu.edu/sswf/SSS/EntityClassSchedule/SSS_StudentClassScheduleOverView.aspx" // second time we get the summary view
+
+  // click my class schedule
+  await page.click(
+    "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1) > ul > li:nth-child(6) > a"
   );
+  await page.screenshot({ path: "./screenshot1.png" });
 
   // Get student's class IDs and titles
-  await page.screenshot({ path: "./screenshot.png" });
   await page.waitForSelector(
     "#ctl00_contentPlaceHolder_DGStudClassSchedule > tbody",
     { timeout: 10000 }
   );
+  await page.screenshot({ path: "./screenshot2.png" });
+
   const table = await page.$$(
     "#ctl00_contentPlaceHolder_DGStudClassSchedule > tbody > tr"
   );
@@ -51,7 +56,7 @@ async function sis_scrape(count = 0) {
     classes.push({ aliases: [title, idNoSection, id] });
   }
 
-  await browser.close();
+  await page.close();
   //await writeToFile(classes, "../data/sis.txt");
   return JSON.stringify(classes);
 }
