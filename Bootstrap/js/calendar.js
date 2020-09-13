@@ -28,13 +28,13 @@ document.getElementById("refresh").addEventListener("click", async function () {
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
 
-        if ((today.getFullYear == bb[i].dueDate.year) && (today.getMonth() == bb[i].dueDate.month)) {
+        if ((today.getFullYear() == bb[i].dueDate.year) && ((today.getMonth() + 1) == bb[i].dueDate.month)) {
 
             // Instantiating all HTML elements
 
             let assignment = bb[i].assignment;
             let time = bb[i].dueDate;
-            let div = cols[bb[i].dueDate.date].getElementsByClassName(".calTaskWrapper")[0];
+            let div = cols[bb[i].dueDate.day - 1].getElementsByClassName("calTaskWrapper")[0];
             let task = document.createElement("div");
             let taskContent = document.createElement("div");
             let taskTime = document.createElement("div");
@@ -79,7 +79,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
             taskContent.appendChild(taskTime);
             taskContent.appendChild(taskTitle);
             task.appendChild(taskContent);
-            div.appendChild(Task);
+            div.appendChild(task);
 
         }
     }
