@@ -136,7 +136,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
                     </div>
                 </div>`
                 for (var w = 0; w < weekDays.length; w++) {
-                    weekDays[0].innerHTML = structure;
+                    weekDays[0].innerHTML += structure;
                 }
 
 
