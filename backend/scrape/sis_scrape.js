@@ -18,10 +18,6 @@ async function sis_scrape(browser) {
   );
 
   // activate dropdown
-  // await page.$eval(
-  //   "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)",
-  //   (el) => el.addClassName("open")
-  // );
   await page.hover(
     "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)"
   );

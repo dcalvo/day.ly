@@ -8,7 +8,7 @@ async function blackboard_scrape(browser) {
   // if the user isn't logged in
   if (page.url().includes("login")) {
     await page.click("#loginBox-JHU > h2 > a:nth-child(5)"); // click log in
-    await page.waitForSelector("input[type='email']"); // username field
+    await page.waitForSelector("input[type='email']", { timeout: 5000 }); // username field
     await page.type("input[type='email']", creds.BlackBoard.username);
     await page.click("#idSIButton9"); // next
     await page.waitFor(2000); // required wait time for JS
