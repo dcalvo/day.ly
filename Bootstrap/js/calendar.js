@@ -1,3 +1,5 @@
+var stringSimilarity = require('string-similarity');
+
 // fetches the current date
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -14,7 +16,7 @@ for (var j = 0; j < cols.length; j++) {
     }
 }
 
-// Grab today and the next 6 days for week view 
+// Grab today and the next 6 days for week view
 var weekday = new Array(7);
 weekday[0] = "Sunday";
 weekday[1] = "Monday";
@@ -46,9 +48,11 @@ document.getElementById("refresh").addEventListener("click", async function () {
     // begin loading here; perhaps grey out or just have cool loading thing from NATo project
     let bbRequest = await fetch("http://localhost:3000/api/blackboard");
     let gsRequest = await fetch("http://localhost:3000/api/gradescope");
+    let sisRequest = await fetch("httpL//localhost:3000/api/sis");
 
     let bb = await bbRequest.json();
     let gs = await gsRequest.json();
+    let sis = await sisRequest.json();
 
     // Blackboard calendar fill
     for (var i = 0; i < bb.length; i++) {
@@ -110,15 +114,15 @@ document.getElementById("refresh").addEventListener("click", async function () {
             task.appendChild(taskContent);
             div.appendChild(task);
 
-            // Populate week-view 
+            // Populate week-view
 
             if (bb[i].dueDate.day >= today.getDay() && bb[i].dueDate.day <= today.getDay() + 6) {
-                console.log(check);
 
-                // Fill each weekday div with predetermined structure
+                // Instantiate new elements
 
                 let weekDays = getElementsByClassName("weekDay");
-                let structure =`<div class="card border-left-warning h-100 w-175 py-2">
+                let structure =
+                `<div class="card border-left-warning h-100 w-175 py-2">
                     <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -136,8 +140,9 @@ document.getElementById("refresh").addEventListener("click", async function () {
                     </div>
                 </div>`
                 for (var w = 0; w < weekDays.length; w++) {
-                    weekDays[0].innerHTML += structure;
+                    weekDays[0].innerHTML = structure;
                 }
+
 
             }
         }
@@ -146,13 +151,13 @@ document.getElementById("refresh").addEventListener("click", async function () {
     // Gradescope calendar fill
     for (var i = 0; i < gs.length; i++) {
 
-        if ((today.getFullYear() == gs[i].dueDate.year) && ((today.getMonth() + 1) == gs[i].dueDate.month)) {
+        if (today.getMonth() == gs[i].dueDate.month) {
 
             // Instantiating all HTML elements
 
             let assignment = gs[i].assignment;
             let time = gs[i].dueDate;
-            let div = cols[gs[i].dueDate.day - 1].getElementsByClassName("calTaskWrapper")[0];
+            let div = cols[gs[i].dueDate.date].getElementsByClassName(".calTaskWrapper")[0];
             let task = document.createElement("div");
             let taskContent = document.createElement("div");
             let taskTime = document.createElement("div");
@@ -167,72 +172,38 @@ document.getElementById("refresh").addEventListener("click", async function () {
             taskTitle.innerHTML = assignment;
 
             // Converting time to string
-            var timeString = "";
             if (time.hour == 12) {
                 if (time.minute != 0) {
-                    timeString = "" + 12 + ":" + time.minute + "PM";
+                    taskTime.innerHTML = "" + 12 + ":" + time.minute + "PM";
                 }
                 else {
-                    timeString = "" + 12 + ":" + 00 + "PM";
+                    taskTime.innerHTML = "" + 12 + ":" + 00 + "PM";
                 }
 
             }
-            else {
-                if (time.hour < 12) {
-                    if (time.minute != 0) {
-                        timeString = "" + time.hour + ":" + time.minute + "AM";
-                    }
-                    else {
-                        timeString = "" + time.hour + ":" + 00 + "AM";
-                    }
+            if (time.hour < 12) {
+                if (time.minute != 0) {
+                    taskTime.innerHTML = "" + time.hour + ":" + time.minute + "AM";
                 }
                 else {
-                    if (time.minute != 0) {
-                        timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
-                    }
-                    else {
-                        timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
-                    }
+                    taskTime.innerHTML = "" + time.hour + ":" + 00 + "AM";
                 }
             }
-            taskTime.innerHTML = timeString;
+            else {
+                if (time.minute != 0) {
+                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + time.minute + "PM";
+                }
+                else {
+                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + 00 + "PM";
+                }
+            }
 
             // Appending new elements to calendar div
             taskContent.appendChild(taskTime);
             taskContent.appendChild(taskTitle);
             task.appendChild(taskContent);
-            div.appendChild(task);
+            div.appendChild(Task);
 
-            // Populate week-view 
-
-            if (gs[i].dueDate.day >= today.getDay() && gs[i].dueDate.day <= today.getDay() + 6) {
-
-                // Fill each weekday div with predetermined structure
-
-                let weekDays = getElementsByClassName("weekDay");
-                let structure =
-                    `<div class="card border-left-warning h-100 w-175 py-2">
-                    <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-auto">
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
-                            </div>
-                         </div>
-                        </div>
-                        <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                    </div>
-                </div>`
-                for (var w = 0; w < weekDays.length; w++) {
-                    weekDays[0].innerHTML += structure;
-                }
-
-            }
         }
     }
 
