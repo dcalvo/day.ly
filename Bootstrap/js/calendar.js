@@ -277,6 +277,29 @@ document.getElementById("refresh").addEventListener("click", async function () {
       document.getElementById("myModal").style.display = "block";
     });
   }
+
+  var weekTaskCards = document.getElementsByClassName("card");
+  for(var i = 0; i < weekTaskCards.length; i++) {
+
+    weekTaskCards[i].addEventListener("click", function(){
+
+      var assignmentName = this.querySelector('.text-xs').innerHTML;
+      var dueDate = getMonthName(date.getMonth()) + " " +(date.getDate()+parseInt(this.parentElement.id)) + ", at " + this.querySelector('.h5').innerHTML;
+      var card = `
+        <div class="modBox">
+          <div class="modContent">
+            <div class="modTopBar">
+              <p class="modTaskTitle">${assignmentName}</p>
+              <span class="closeButton" onclick = "hide()"><sup>x</sup></span>
+            </div>
+            <p class="modDueDate">${dueDate}</p>
+          </div>
+        </div>`
+      document.getElementById("myModal").innerHTML = card;
+      document.getElementById("myModal").style.display = "block";
+    });
+
+  }
 });
 
 function hide() {
