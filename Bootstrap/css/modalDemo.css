@@ -1,0 +1,96 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modHaze {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* depth of top of box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modBox {
+    display:flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 5px;
+    width: 30%;
+    height: 20%;
+    background-color: #fff;
+    border: 1px solid #e3e6f0;
+    border-radius: 1rem;
+    border-left: 0.25rem solid #44bcd8;
+}
+
+.modTopBar {
+    display:flex;
+    flex-direction: right;
+    height: 30px;
+}
+
+.modTaskTitle {
+    color: black;
+    font-size: x-large;
+    font-weight: bold;
+    margin-right: auto;
+    width: 50%;
+    margin-bottom:0px;
+}
+
+.modDueDate {
+    color: black;
+    font-size: large;
+    margin-bottom:0px;
+}
+
+.modCourse {
+    color:black;
+    font-size: large;
+    margin-bottom:0px;
+}
+
+.modcolorPallette {
+    display:flex;
+    flex-direction: row;
+}
+
+.modColorButton {
+    display:flex;
+    background-color: red;
+    border-radius: 0.25rem;
+    width: 15px;
+    height: 15px;
+}
+
+.modTaskSource {
+    color:black;
+    font-size:small;
+    
+}
+
+.closeButton {
+    display:flex;
+    color: #aaaaaa;
+    float:right;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top:15px;
+    margin-right: 5px;
+}
+.closeButton:hover,
+.closeButton:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modContent {
+    height:100%;
+    margin: 5px;
+}
