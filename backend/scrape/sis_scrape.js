@@ -1,5 +1,5 @@
 const puppeteer = require("puppeteer");
-const creds = require("../creds");
+const creds = require("../../creds");
 
 async function sis_scrape(count = 0) {
   const browser = await puppeteer.launch();

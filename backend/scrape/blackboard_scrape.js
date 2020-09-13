@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
-const creds = require("../creds");
-const { ical_parse } = require("./ical_parse");
+const creds = require("../../creds");
+const { ical_parse } = require("../utils/ical_parse");
 
 async function blackboard_scrape(count = 0) {
   const browser = await puppeteer.launch();
@@ -57,5 +57,7 @@ async function blackboard_scrape(count = 0) {
   const parsedIcal = await ical_parse(icalData);
   return parsedIcal;
 }
+
+blackboard_scrape();
 
 exports.blackboard_scrape = blackboard_scrape;
