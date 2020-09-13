@@ -1,5 +1,3 @@
-var stringSimilarity = require('string-similarity');
-
 // fetches the current date
 var today = new Date();
 var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -48,7 +46,7 @@ document.getElementById("refresh").addEventListener("click", async function () {
     // begin loading here; perhaps grey out or just have cool loading thing from NATo project
     let bbRequest = await fetch("http://localhost:3000/api/blackboard");
     let gsRequest = await fetch("http://localhost:3000/api/gradescope");
-    let sisRequest = await fetch("httpL//localhost:3000/api/sis");
+    let sisRequest = await fetch("http://localhost:3000/api/sis");
 
     let bb = await bbRequest.json();
     let gs = await gsRequest.json();
