@@ -113,12 +113,12 @@ document.getElementById("refresh").addEventListener("click", async function () {
             // Populate week-view 
 
             if (bb[i].dueDate.day >= today.getDay() && bb[i].dueDate.day <= today.getDay() + 6) {
+                console.log(check);
 
-                // Instantiate new elements
+                // Fill each weekday div with predetermined structure
 
                 let weekDays = getElementsByClassName("weekDay");
-                let structure =
-                `<div class="card border-left-warning h-100 w-175 py-2">
+                let structure =`<div class="card border-left-warning h-100 w-175 py-2">
                     <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
@@ -139,7 +139,6 @@ document.getElementById("refresh").addEventListener("click", async function () {
                     weekDays[0].innerHTML += structure;
                 }
 
-
             }
         }
     }
@@ -147,13 +146,13 @@ document.getElementById("refresh").addEventListener("click", async function () {
     // Gradescope calendar fill
     for (var i = 0; i < gs.length; i++) {
 
-        if (today.getMonth() == gs[i].dueDate.month) {
+        if ((today.getFullYear() == gs[i].dueDate.year) && ((today.getMonth() + 1) == gs[i].dueDate.month)) {
 
             // Instantiating all HTML elements
 
             let assignment = gs[i].assignment;
             let time = gs[i].dueDate;
-            let div = cols[gs[i].dueDate.date].getElementsByClassName(".calTaskWrapper")[0];
+            let div = cols[gs[i].dueDate.day - 1].getElementsByClassName("calTaskWrapper")[0];
             let task = document.createElement("div");
             let taskContent = document.createElement("div");
             let taskTime = document.createElement("div");
@@ -168,38 +167,72 @@ document.getElementById("refresh").addEventListener("click", async function () {
             taskTitle.innerHTML = assignment;
 
             // Converting time to string
+            var timeString = "";
             if (time.hour == 12) {
                 if (time.minute != 0) {
-                    taskTime.innerHTML = "" + 12 + ":" + time.minute + "PM";
+                    timeString = "" + 12 + ":" + time.minute + "PM";
                 }
                 else {
-                    taskTime.innerHTML = "" + 12 + ":" + 00 + "PM";
+                    timeString = "" + 12 + ":" + 00 + "PM";
                 }
 
             }
-            if (time.hour < 12) {
-                if (time.minute != 0) {
-                    taskTime.innerHTML = "" + time.hour + ":" + time.minute + "AM";
-                }
-                else {
-                    taskTime.innerHTML = "" + time.hour + ":" + 00 + "AM";
-                }
-            }
             else {
-                if (time.minute != 0) {
-                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + time.minute + "PM";
+                if (time.hour < 12) {
+                    if (time.minute != 0) {
+                        timeString = "" + time.hour + ":" + time.minute + "AM";
+                    }
+                    else {
+                        timeString = "" + time.hour + ":" + 00 + "AM";
+                    }
                 }
                 else {
-                    taskTime.innerHTML = "" + (time.hour - 12) + ":" + 00 + "PM";
+                    if (time.minute != 0) {
+                        timeString = "" + (time.hour - 12) + ":" + time.minute + "PM";
+                    }
+                    else {
+                        timeString = "" + (time.hour - 12) + ":" + 00 + "PM";
+                    }
                 }
             }
+            taskTime.innerHTML = timeString;
 
             // Appending new elements to calendar div
             taskContent.appendChild(taskTime);
             taskContent.appendChild(taskTitle);
             task.appendChild(taskContent);
-            div.appendChild(Task);
+            div.appendChild(task);
 
+            // Populate week-view 
+
+            if (gs[i].dueDate.day >= today.getDay() && gs[i].dueDate.day <= today.getDay() + 6) {
+
+                // Fill each weekday div with predetermined structure
+
+                let weekDays = getElementsByClassName("weekDay");
+                let structure =
+                    `<div class="card border-left-warning h-100 w-175 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">${assignment}</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${timeString}</div>
+                            </div>
+                         </div>
+                        </div>
+                        <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    </div>
+                </div>`
+                for (var w = 0; w < weekDays.length; w++) {
+                    weekDays[0].innerHTML += structure;
+                }
+
+            }
         }
     }
 
