@@ -3,40 +3,42 @@ const creds = require("../../creds");
 async function gradescope_scrape(browser) {
   const page = await browser.newPage();
   await page.goto("https://www.gradescope.com/login");
-  await page.type("#session_email", creds.Gradescope.username);
-  await page.type("#session_password", creds.Gradescope.password);
-  await page.click("#box-main > div > form > div:nth-child(6) > input");
-  await page.waitForNavigation({
-    waitUntil: "networkidle0",
-  });
+  await page.waitFor(1000);
+  if (page.url().includes("login")) {
+    await page.waitForSelector("input[type='email']"); // username field
+    await page.type("#session_email", creds.Gradescope.username);
+    await page.type("#session_password", creds.Gradescope.password);
+    await page.click("#box-main > div > form > div:nth-child(6) > input");
+    await page.waitFor(1000);
+  }
 
-  var classList = await page.$$(
+  let classList = await page.$$(
     "#account-show > div.courseList > div:nth-child(2) > .courseBox"
   );
-  var assignmentData = [];
-  for (var i = 0; i < classList.length - 1; i++) {
+  let assignmentData = [];
+  for (let i = 0; i < classList.length - 1; i++) {
+    // satisfy puppeteer execution context preservation
     classList = await page.$$(
       "#account-show > div.courseList > div:nth-child(2) > .courseBox"
     );
-    await classList[i].click();
-    await page.waitForNavigation({
-      waitUntil: "load",
+    const shortClassName = await classList[i].$eval("h3", (element) => {
+      return element.innerText;
+    });
+    const className = await classList[i].$eval("h4", (element) => {
+      return element.innerText;
     });
 
-    var classNameShell = await page.$(
-      "#main-content > div.l-contentWrapper > div > header"
-    );
-    var className = await classNameShell.$eval(
-      ".courseHeader--title",
-      (element) => element.innerHTML
-    );
+    await classList[i].click(); // enter the class
+    await page.waitForSelector("#assignments-student-table");
 
-    var assignmentList = await page.$$(
+    const assignmentList = await page.$$(
       "#assignments-student-table > tbody > tr"
     );
-    for (var j = 0; j < assignmentList.length; j++) {
-      var assignmentTitleShell = await assignmentList[j].$("th");
-      var assignmentTitle;
+    for (let j = 0; j < assignmentList.length; j++) {
+      let assignmentTitleShell = await assignmentList[j].$("th");
+
+      // massive try-catch to get all edge cases for how gradescope stores titles
+      let assignmentTitle;
       try {
         assignmentTitle = await assignmentTitleShell.$eval(
           "a",
@@ -58,7 +60,8 @@ async function gradescope_scrape(browser) {
         }
       }
 
-      var dueDate;
+      // get dueDate from the ways they store it and parse it for format
+      let dueDate;
       try {
         var dueDateShell = await assignmentList[j].$(
           "td.sorting_1.sorting_2 > div > .progressBar--caption"
@@ -75,7 +78,7 @@ async function gradescope_scrape(browser) {
         var dateArray = gradescopeDate(dueDate);
         assignmentData.push({
           assignment: assignmentTitle,
-          class: className,
+          class: { className, shortClassName },
           dueDate: {
             month: dateArray[0],
             day: dateArray[1],
@@ -87,6 +90,7 @@ async function gradescope_scrape(browser) {
       }
     }
 
+    // back to list of classes for next delve
     await page.goBack({
       waitUntil: "load",
     });
@@ -96,7 +100,7 @@ async function gradescope_scrape(browser) {
   return JSON.stringify(assignmentData);
 }
 
-// getClasses();
+// parse gradescope date into our format
 function gradescopeDate(stringDate) {
   stringDate = stringDate.replace(" at", "");
   stringDate = stringDate.replace("  ", " ");
@@ -162,6 +166,7 @@ function gradescopeDate(stringDate) {
   return [month, date, year, hours, minutes];
 }
 
+// convert from 12hour time to 24hour time
 function militaryTime(standardTime) {
   timeArray = standardTime.split(":");
   var hour = timeArray[0];

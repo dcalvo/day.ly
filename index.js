@@ -68,13 +68,9 @@ async function retry(scraper, browser, maxRetries = 3) {
     if (maxRetries <= 0) {
       throw err;
     }
-    console.log(
-      "Error in scraper " +
-        scraper.name +
-        " Retrying with " +
-        maxRetries +
-        " attempts remaining..."
-    );
+    console.log(`Error in scraper ${scraper.name}:`);
+    console.log(err);
+    console.log(`Retrying with ${maxRetries} attempts remaining...`);
     return retry(scraper, browser, maxRetries - 1);
   });
 }
