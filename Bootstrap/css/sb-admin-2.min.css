@@ -4189,6 +4189,11 @@
   .card-link + .card-link {
     margin-left: 1.25rem;
   }
+  .loginButton {
+    margin-left: 23px;
+    max-width: 150px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
   .card-header {
     padding: 0.75rem 1.25rem;
     margin-bottom: 0;
