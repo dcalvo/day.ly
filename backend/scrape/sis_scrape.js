@@ -14,15 +14,11 @@ async function sis_scrape(browser) {
     await page.click("#idSIButton9"); // next
   }
   await page.waitFor(2000);
-  await page.screenshot({ path: "./screenshot.png" });
   try {
-    await page.screenshot({ path: "./screenshot1.png" });
     await page.click("#ctl00_contentPlaceHolder_btnContinueToIsis");
-    await page.screenshot({ path: "./screenshot2.png" });
   } catch {
     // no notification pending
   }
-  await page.screenshot({ path: "./screenshot3.png" });
 
   await page.waitForSelector(
     "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1)"
