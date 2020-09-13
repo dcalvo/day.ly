@@ -161,9 +161,7 @@ function gradescopeDate(stringDate) {
   var hours = timeArray[0];
   var minutes = timeArray[1];
 
-  var dateObject = new Date();
-  var year = dateObject.getYear();
-  return [month, date, year, hours, minutes];
+  return [month, date, hours, minutes];
 }
 
 // convert from 12hour time to 24hour time
