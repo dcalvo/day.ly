@@ -107,7 +107,7 @@
 }
 
 .weekDay {
-    display:flex;       
+    display:flex;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
@@ -115,4 +115,10 @@
 
 .weekDay::-webkit-scrollbar {
     display: none;
+}
+
+#toggleOff{
+
+  display: none;
+
 }
