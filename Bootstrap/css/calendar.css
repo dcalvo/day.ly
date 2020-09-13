@@ -72,7 +72,6 @@
     width: 200px;
     height: 150px;
     border: solid 1px;
-    overflow-y: scroll;
 }
 .calDay {
     display: flex;
