@@ -4,6 +4,7 @@ const { getGroupmeMessages } = require("./backend/messaging/groupme");
 const { blackboard_scrape } = require("./backend/scrape/blackboard_scrape");
 const { gradescope_scrape } = require("./backend/scrape/gradescope_scrape");
 const { sis_scrape } = require("./backend/scrape/sis_scrape");
+var stringSimilarity = require("string-similarity");
 
 const app = express();
 const port = 3000;
@@ -31,6 +32,14 @@ app.get("/oauth/groupme", async function (req, res) {
 });
 
 /* API ROUTES */
+
+// send string similarity comparison
+app.get("/api/compare", async function (req, res) {
+  const string1 = req.query.string1;
+  const string2 = req.query.string2;
+  const similarity = stringSimilarity.compareTwoStrings(string1, string2);
+  res.send(similarity.toString());
+});
 
 // send latest groupme message previews
 app.get("/api/groupme", async function (req, res) {
