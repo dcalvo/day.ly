@@ -648,6 +648,8 @@
     flex-grow: 1;
     min-width: 0;
     max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .row-cols-1 > * {
     flex: 0 0 100%;
