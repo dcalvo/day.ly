@@ -58,4 +58,6 @@ async function blackboard_scrape(count = 0) {
   return parsedIcal;
 }
 
+blackboard_scrape();
+
 exports.blackboard_scrape = blackboard_scrape;
