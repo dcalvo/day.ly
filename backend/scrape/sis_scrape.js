@@ -1,5 +1,4 @@
 const creds = require("../../creds");
-const { writeToFile } = require("../utils/writeFile.js");
 
 async function sis_scrape(browser, count = 0) {
   const page = await browser.newPage();
@@ -31,14 +30,12 @@ async function sis_scrape(browser, count = 0) {
   await page.click(
     "#aspnetForm > div:nth-child(4) > nav.navbar.navbar-custom > div > ul.nav.navbar-nav.navbar-left > li:nth-child(1) > ul > li:nth-child(6) > a"
   );
-  await page.screenshot({ path: "./screenshot1.png" });
 
   // Get student's class IDs and titles
   await page.waitForSelector(
     "#ctl00_contentPlaceHolder_DGStudClassSchedule > tbody",
     { timeout: 10000 }
   );
-  await page.screenshot({ path: "./screenshot2.png" });
 
   const table = await page.$$(
     "#ctl00_contentPlaceHolder_DGStudClassSchedule > tbody > tr"
@@ -57,7 +54,6 @@ async function sis_scrape(browser, count = 0) {
   }
 
   await page.close();
-  //await writeToFile(classes, "../data/sis.txt");
   return JSON.stringify(classes);
 }
 

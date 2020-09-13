@@ -1,9 +1,6 @@
-const puppeteer = require("puppeteer");
 const creds = require("../../creds");
-const { writeToFile } = require("../utils/writeFile.js");
 
-async function gradescope_scrape() {
-  const browser = await puppeteer.launch();
+async function gradescope_scrape(browser, count = 0) {
   const page = await browser.newPage();
   await page.goto("https://www.gradescope.com/login");
   await page.type("#session_email", creds.Gradescope.username);
@@ -33,7 +30,6 @@ async function gradescope_scrape() {
       ".courseHeader--title",
       (element) => element.innerHTML
     );
-    console.log(className);
 
     var assignmentList = await page.$$(
       "#assignments-student-table > tbody > tr"
@@ -46,24 +42,19 @@ async function gradescope_scrape() {
           "a",
           (element) => element.innerHTML
         );
-        console.log(assignmentTitle);
       } catch {
         try {
           assignmentTitle = await assignmentTitleShell.$eval(
             "button",
             (element) => element.innerHTML
           );
-          console.log(assignmentTitle);
         } catch {
           try {
             assignmentTitle = await assignmentList[j].$eval(
               "th",
               (element) => element.innerHTML
             );
-            console.log(assignmentTitle);
-          } catch {
-            console.log("bad title");
-          }
+          } catch {}
         }
       }
 
@@ -76,10 +67,8 @@ async function gradescope_scrape() {
           "span.submissionTimeChart--dueDate",
           (element) => element.innerHTML
         );
-        console.log("Due:" + dueDate);
       } catch {
         dueDate = null;
-        console.log("bad date");
       }
 
       if (dueDate != null) {
@@ -103,9 +92,7 @@ async function gradescope_scrape() {
     });
   }
 
-  await browser.close();
-
-  //await writeToFile(assignmentData, "../data/gradescope.txt");
+  await page.close();
   return JSON.stringify(assignmentData);
 }
 

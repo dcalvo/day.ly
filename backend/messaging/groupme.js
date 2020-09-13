@@ -1,5 +1,4 @@
 const fetch = require("node-fetch");
-const { writeToFile } = require("../utils/writeFile.js");
 
 async function getGroupmeMessages(token) {
   const response = await fetch(
